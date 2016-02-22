@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Lwxiang's Blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://houseowo.me/"/>
-  <updated>2016-02-22T08:46:30.000Z</updated>
+  <updated>2016-02-22T10:15:19.000Z</updated>
   <id>http://houseowo.me/</id>
   
   <author>
@@ -13,6 +13,92 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[usaco2005jan Sumsets]]></title>
+    <link href="http://houseowo.me/2013/02/14/POJ2229/"/>
+    <id>http://houseowo.me/2013/02/14/POJ2229/</id>
+    <published>2013-02-14T05:20:32.000Z</published>
+    <updated>2016-02-22T10:15:19.000Z</updated>
+    <content type="html"><![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=2229" title="Sumsets" target="_blank" rel="external">POJ2229</a></p>
+<h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意为：</p>
+<p>给出一个正整数N(&lt;=10^6)，可知N可分解为多个2^K(&gt;=0)的数相加</p>
+<p>如： 7 = 1 + 1 + 1 + 1 + 1 + 1 + 1;</p>
+<pre><code>= 1 + 1 + 1 + 1 + 1 + 2；
+
+= 1 + 1 + 1 + 2 + 2;
+
+= 1 + 1 + 1 + 4;
+
+= 1 + 2 + 2 + 2;
+
+= 1 + 2 + 4；      
+</code></pre><p>共6种；</p>
+<p>求种数。</p>
+<p>刚拿到题目的时候，我联想到了整数的划分。</p>
+<p>套用那个动归方程去做。</p>
+<p>即<code>F[I,J]</code> 表示，将I划分成最大为J的整数和。</p>
+<p>这样 <code>F[I,J] = SIGMA{ F[I-J,K]  J&gt;=K }</code></p>
+<p>这题便是，F[I,J] 表示，将I划分成最大为2^J(&gt;=0)的整数和。</p>
+<p>方程一样 <code>F[I,J] = SIGMA{ F[I-1,K] J&gt;=K }</code></p>
+<p>可是这样做的时间复杂度为,O(n<em>logn</em>logn)，会超时。</p>
+<p>但我又想到<code>F[I,J]</code> 只从 <code>F[I-J,0] + F[I-J,1] +...+ F[I-1,J]</code></p>
+<p>这样可以用<code>C[I,J]</code> 表示 <code>F[I,J]</code> 的前缀和 </p>
+<p>方程转移变成 <code>F[I,J] = C[I-J,T]</code>  其中<code>T = MIN { log(i-j) , j } (最大T,2^T不能超过I-J，T不能超过J)</code></p>
+<pre><code>`C[I,J] = C[I,J-1]+F[I,J]`
+</code></pre><p>这样省去了K的那层循环，复杂度优化为O(n*logn)，非常遗憾，还是会超时。</p>
+<h2 id="u89E3_u6CD5"><a href="#u89E3_u6CD5" class="headerlink" title="解法"></a>解法</h2><p>想了半天以后，只能去看题解。</p>
+<p>题解也是用动归。</p>
+<p>用F[I]表示把I划分的种数。</p>
+<p>则 在所有构成I的加数中，只有1是奇数。</p>
+<p>若I为奇数，则必然至少含1个1.且这个1必然独立。则<code>F[I] = F[I-1]</code></p>
+<p>若I为偶数，则若含1，至少含2个，且这2个1也独立。<code>F[I] = F[I-2]</code></p>
+<pre><code>若不含1，则所有的加数都是偶数，所以所有的加数都可以映射到其1/2，如 8 = 2 + 2 + 4 可以映射到 4 = 1 + 1 + 2
+
+                                则`F[I] = F[I/2]`
+</code></pre><p>综上，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f[i] = f[i-<span class="number">1</span>]   &#123;i mod <span class="number">2</span>=<span class="number">1</span>&#125;               </span><br><span class="line"></span><br><span class="line">f[i-<span class="number">2</span>] + f[i/<span class="number">2</span>] &#123;i mod <span class="number">2</span>=<span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="u4F18_u5316"><a href="#u4F18_u5316" class="headerlink" title="优化"></a>优化</h2><h2 id="u8BE6_u89E3"><a href="#u8BE6_u89E3" class="headerlink" title="详解"></a>详解</h2><p>初始 f[1]=1 f[2]=2</p>
+<h2 id="u7EC6_u8282"><a href="#u7EC6_u8282" class="headerlink" title="细节"></a>细节</h2><h2 id="u6E90_u7A0B_u5E8F"><a href="#u6E90_u7A0B_u5E8F" class="headerlink" title="源程序"></a>源程序</h2><p>解一：(优化后)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Program Lwx;</span><br><span class="line">Const 	md=<span class="number">1000000000</span>;</span><br><span class="line">Var 	n:longint;</span><br><span class="line">    	a:<span class="built_in">array</span>[<span class="number">0.</span><span class="number">.1000000</span>, <span class="number">0.</span><span class="number">.20</span>] of longint;</span><br><span class="line">    	c:<span class="built_in">array</span>[<span class="number">0.</span><span class="number">.1000000</span>, -<span class="number">1.</span><span class="number">.20</span>] of longint;</span><br><span class="line">    	b:<span class="built_in">array</span>[<span class="number">0.</span><span class="number">.100</span>] of longint;</span><br><span class="line">    	ans, i, j, k, l, x, y, z:longint;</span><br><span class="line"></span><br><span class="line"><span class="function">Begin</span><br><span class="line">  	<span class="title">readln</span><span class="params">(n)</span></span>;</span><br><span class="line">  	b[<span class="number">0</span>] := <span class="number">1</span>; k := <span class="number">0</span>;</span><br><span class="line">  	<span class="keyword">while</span> b[k] &lt; <span class="function">n <span class="keyword">do</span></span><br><span class="line">  	begin</span><br><span class="line">   		<span class="title">inc</span><span class="params">(k)</span></span>;</span><br><span class="line">   		b[k] := b[k-<span class="number">1</span>] * <span class="number">2</span>;</span><br><span class="line">  	end;</span><br><span class="line">  	c[<span class="number">1</span>, <span class="number">0</span>] := <span class="number">1</span>;</span><br><span class="line"> 	<span class="keyword">for</span> i := <span class="number">2</span> to n <span class="keyword">do</span></span><br><span class="line">  	begin</span><br><span class="line">   		c[i, -<span class="number">1</span>] := <span class="number">0</span>;</span><br><span class="line">   		<span class="keyword">for</span> j := <span class="number">0</span> to k <span class="keyword">do</span></span><br><span class="line">    		<span class="keyword">if</span> b[j] &lt;= i then</span><br><span class="line">    		begin</span><br><span class="line">      			<span class="keyword">if</span> b[j] = i then begin a[i, j] := <span class="number">1</span>; <span class="keyword">continue</span>; end</span><br><span class="line">      			<span class="keyword">else</span> a[i, j] := <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      			y := trunc(ln(i-b[j])/ln(<span class="number">2</span>));</span><br><span class="line">      			<span class="keyword">if</span> y &gt; j then y := j;</span><br><span class="line">      			a[i, j] := (a[i,j ] + c[i-b[j], y]) mod md;</span><br><span class="line">      			c[i, j] := (c[i, j-<span class="number">1</span>] + a[i, j]) mod md;</span><br><span class="line">    		end <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">  	end;</span><br><span class="line">  	ans := <span class="number">0</span>;</span><br><span class="line">  	<span class="keyword">for</span> i := <span class="number">0</span> to k <span class="keyword">do</span></span><br><span class="line">  	<span class="keyword">if</span> b[i] &lt;= n then ans := (ans + a[n, i]) mod md;</span><br><span class="line">  	write(ans);</span><br><span class="line">End.</span><br></pre></td></tr></table></figure>
+<p>解二：(正解)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Program Lwx;</span><br><span class="line">Const 	md=<span class="number">1000000000</span>;</span><br><span class="line">Var 	a:<span class="built_in">array</span>[<span class="number">0.</span><span class="number">.1000000</span>] of longint;</span><br><span class="line">   	n,i,j,k,l:longint;</span><br><span class="line"></span><br><span class="line"><span class="function">Begin</span><br><span class="line">  <span class="title">read</span><span class="params">(n)</span></span>;</span><br><span class="line">  a[<span class="number">1</span>] := <span class="number">1</span>; a[<span class="number">2</span>] := <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">for</span> i := <span class="number">3</span> to n <span class="keyword">do</span> </span><br><span class="line">  <span class="keyword">if</span> i mod <span class="number">2</span> = <span class="number">1</span> then a[i] := a[i-<span class="number">1</span>] <span class="keyword">else</span> a[i] := (a[i-<span class="number">2</span>] + a[i div <span class="number">2</span>]) mod md;</span><br><span class="line">  write(a[n]);</span><br><span class="line">End.</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=2229" title="Sumsets" target="_blank" rel="external">POJ2229</a></p>
+<h2 id="u5206_u6790"><a href]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[usaco2008feb Eating Together]]></title>
+    <link href="http://houseowo.me/2013/02/14/POJ3670/"/>
+    <id>http://houseowo.me/2013/02/14/POJ3670/</id>
+    <published>2013-02-13T18:20:07.000Z</published>
+    <updated>2016-02-22T10:15:19.000Z</updated>
+    <content type="html"><![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=3670" title="Eating Together" target="_blank" rel="external">POJ3670</a></p>
+<h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意为：</p>
+<p>给定一个长度为N（N&lt;=30000）的仅包含1,2,3的串</p>
+<p>求最长不下降子序列（正反均可）</p>
+<h2 id="u89E3_u6CD5"><a href="#u89E3_u6CD5" class="headerlink" title="解法"></a>解法</h2><p>刚开始以为必须用O(N^2)的不下降子序列的经典算法</p>
+<p>可是30000的数据不允许 </p>
+<p>可以发现串中只包含1，2，3三种数字</p>
+<p>则在子序列S中，</p>
+<p>若 s[i] = 1  则 s[i-1] = 1</p>
+<p>   s[i] = 2     s[i-1] = 1 or 2</p>
+<p>   s[i] = 3     s[i-1] = 1 or 2 or 3</p>
+<p>可知在源串L中，离L[i]最近的以K(k=1,2,3)结尾的串</p>
+<p>必然是最长的以K(K=1,2,3)结尾的串，可以反证</p>
+<p>因此F[i]的决策来自于离i最近的F[j]=k(k=1,2,3)</p>
+<p>所以 F[I] = MAX { B[K] + 1 ,1&lt;=K&lt;=L[I] }</p>
+<h2 id="u4F18_u5316"><a href="#u4F18_u5316" class="headerlink" title="优化"></a>优化</h2><h2 id="u8BE6_u89E3"><a href="#u8BE6_u89E3" class="headerlink" title="详解"></a>详解</h2><p>F[I]表示以L[I]结尾的最长子序列长度，B[K]表示以K结尾的最长子序列长度</p>
+<h2 id="u7EC6_u8282"><a href="#u7EC6_u8282" class="headerlink" title="细节"></a>细节</h2><p>每次更新B[K] 记得反过来再做一遍</p>
+<h2 id="u6E90_u7A0B_u5E8F"><a href="#u6E90_u7A0B_u5E8F" class="headerlink" title="源程序"></a>源程序</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Program Lwx;</span><br><span class="line">Var 	n:longint;</span><br><span class="line">    	a:array[1..30007] of longint;</span><br><span class="line">    	b:array[1..3] of longint;</span><br><span class="line">    	i, j, k, max:longint;</span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">Begin</span></span><br><span class="line">	readln(<span class="keyword">n</span>);</span></span><br><span class="line">	for i := 1 to n <span class="operator"><span class="keyword">do</span> <span class="keyword">read</span>(a[<span class="keyword">i</span>]);</span></span><br><span class="line">	fillchar(b, sizeof(b), 0);</span><br><span class="line">  	for i := 1 to n <span class="operator"><span class="keyword">do</span></span><br><span class="line">  	<span class="keyword">begin</span></span><br><span class="line">    		<span class="keyword">k</span> := <span class="number">0</span>;</span></span><br><span class="line">    		for j := 1 to a[i] <span class="operator"><span class="keyword">do</span></span><br><span class="line">    		<span class="keyword">if</span> b[j] &gt; <span class="keyword">k</span> <span class="keyword">then</span> <span class="keyword">k</span> := b[j];</span></span><br><span class="line">    		b[a[i]] := k + 1;</span><br><span class="line">  	<span class="operator"><span class="keyword">end</span>;</span></span><br><span class="line">  	max := 0;</span><br><span class="line">  	for i := 1 to 3 <span class="operator"><span class="keyword">do</span> <span class="keyword">if</span> b[<span class="keyword">i</span>] &gt; <span class="keyword">max</span> <span class="keyword">then</span> <span class="keyword">max</span> := b[<span class="keyword">i</span>];</span></span><br><span class="line">  	fillchar(b, sizeof(b), 0);</span><br><span class="line">  	for i := n downto 1 <span class="operator"><span class="keyword">do</span></span><br><span class="line">  	<span class="keyword">begin</span></span><br><span class="line">    		<span class="keyword">k</span> := <span class="number">0</span>;</span></span><br><span class="line">    		for j := 1 to a[i] <span class="operator"><span class="keyword">do</span></span><br><span class="line">    		<span class="keyword">if</span> b[j] &gt; <span class="keyword">k</span> <span class="keyword">then</span> <span class="keyword">k</span> := b[j];</span></span><br><span class="line">    		b[a[i]] := k + 1;</span><br><span class="line">  	<span class="operator"><span class="keyword">end</span>;</span></span><br><span class="line">  	for i := 1 to 3 <span class="operator"><span class="keyword">do</span> <span class="keyword">if</span> b[<span class="keyword">i</span>]  &gt;<span class="keyword">max</span> <span class="keyword">then</span> <span class="keyword">max</span> := b[<span class="keyword">i</span>];</span></span><br><span class="line">  	write(n - max);</span><br><span class="line"><span class="operator"><span class="keyword">End</span>.</span></span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=3670" title="Eating Together" target="_blank" rel="external">POJ3670</a></p>
+<h2 id="u5206_u6790"]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[usaco2007open Cheapest Palindrome]]></title>
