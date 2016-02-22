@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Lwxiang's Blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://houseowo.me/"/>
-  <updated>2016-02-21T14:55:08.000Z</updated>
+  <updated>2016-02-22T08:17:31.000Z</updated>
   <id>http://houseowo.me/</id>
   
   <author>
@@ -13,6 +13,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[usaco2007open Cheapest Palindrome]]></title>
+    <link href="http://houseowo.me/2012/12/15/POJ3280/"/>
+    <id>http://houseowo.me/2012/12/15/POJ3280/</id>
+    <published>2012-12-15T05:20:32.000Z</published>
+    <updated>2016-02-22T08:17:31.000Z</updated>
+    <content type="html"><![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=3280" title="Cheapest Palindrome" target="_blank" rel="external">POJ3280</a></p>
+<h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意为：</p>
+<p>给定一个长度为M（M&lt;=2000）的小写字母串</p>
+<p>给定串中出现的N种字母的添加和删除代价</p>
+<p>可以在任意位置加入或删除任意字母，代价如给定</p>
+<p>求使原串变形为回文串的最小代价</p>
+<h2 id="u89E3_u6CD5"><a href="#u89E3_u6CD5" class="headerlink" title="解法"></a>解法</h2><p>刚开始的思路非常复杂，储存两个代价，并且递归处理</p>
+<p>(left,right)之外的回文串(之间的已为回文)，然后分各种情况讨论。这又犯了想当然的毛病，而且每次都是打到一半才发现算法不完善，情况考虑未完整，影响很致命。</p>
+<p>其实这题的解法很简单。</p>
+<a id="more"></a>
+<p>首先注意到当在处理(left,right)时，</p>
+<p>如 …a(…)b… ()中为已处理完的回文串。此时删除和添加a所获得的效果和影响是一样的，因此我们只要在预处理时保留min(add[i],delete[i])就可以了。</p>
+<h2 id="u4F18_u5316"><a href="#u4F18_u5316" class="headerlink" title="优化"></a>优化</h2><p>dp</p>
+<h2 id="u8BE6_u89E3"><a href="#u8BE6_u89E3" class="headerlink" title="详解"></a>详解</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="attribute">left</span>,<span class="attribute">right</span>]</span><br></pre></td></tr></table></figure>
+<p>表示将left,right区间内字符串变成回文串</p>
+<p>有三种情况 </p>
+<pre><code>1.  a(...)a 这类代价直接等于(...)中代价
+
+2.  a(...)b 有两种处理，后处理a : cost[a] + cost[ (...)b ]   
+
+                            后处理b : cost[b] + cost[ a(...) ]
+</code></pre><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="keyword">left</span>,<span class="keyword">right</span>] =</span><br><span class="line">    &#123;  </span><br><span class="line">       	cost[<span class="keyword">left</span>+<span class="number">1</span>,<span class="keyword">right</span>-<span class="number">1</span>]                                                     (<span class="keyword">if</span> word[<span class="keyword">left</span>]=word[<span class="keyword">right</span>]) </span><br><span class="line">       	<span class="built_in">min</span>( cost[<span class="keyword">left</span>+<span class="number">1</span>,<span class="keyword">right</span>] + pay[<span class="keyword">left</span>] , cost[<span class="keyword">left</span>,<span class="keyword">right</span>-<span class="number">1</span>] + pay[<span class="keyword">right</span>] )  (<span class="keyword">else</span>                     )   </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u7EC6_u8282"><a href="#u7EC6_u8282" class="headerlink" title="细节"></a>细节</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="tag">i</span>,i]=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<pre><code>单个字符
+</code></pre><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cost[i,i-<span class="number">1</span>]=<span class="number">0</span></span><br><span class="line">``` </span><br><span class="line">    空串</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">## 源程序</span></span><br></pre></td></tr></table></figure>
+<p>Program Lwx;</p>
+<p>Var     n, m:longint;<br>        word:array[1..2007] of longint;<br>        cost:array[1..26] of longint;<br>        tax:array[0..2007] of longint;<br>        fur:array[0..2007, 0..2007] of longint;<br>        i, j, k, l, x, y, z, ans:longint;<br>        q, w:char;</p>
+<p>Function min(a, b:longint):longint;<br>Begin<br>      if a &lt; b then exit(a); exit(b);<br>End;</p>
+<p>Procedure init;<br>Begin<br>      //assign(input, ‘test.in’); reset(input);<br>      readln(n, m);<br>      for i := 1 to m do<br>      begin<br>            read(q);<br>            word[i] := ord(q) - ord(‘a’) + 1; //用数字代替字母<br>      end;<br>      readln;<br>      for i := 1 to n do<br>      begin<br>            read(q);<br>            readln(x, y);<br>            z := ord(q) - ord(‘a’) + 1;<br>            cost[z] := min(x, y); //预处理出最小的处理代价<br>      end;<br>      //close(input);<br>End;</p>
+<p>Procedure main;<br>Begin<br>      for i := 0 to m do<br>      for j := 0 to m do fur[i, j] := maxlongint;<br>      for i := 1 to m do<br>      begin<br>            fur[i, i] := 0;<br>            fur[i, i-1] := 0;<br>      end;<br>      for i := 1 to m-1 do<br>       for j := 1 to m-i do<br>       begin<br>             l := i + j;<br>             if word[j] = word[l] then begin fur[j, l] := fur[j+1, l-1]; continue; end; //若是两边字母相同<br>             fur[j, l] := min(fur[j+1, l] + cost[word[j]], fur[j, l-1] + cost[word[l]]); //不同则取小的一边<br>       end;<br>End;</p>
+<p>Procedure outit;<br>Begin<br>    //assign(output, ‘test.out’); rewrite(output);<br>      write(fur[1, m]);<br>      //close(output);<br>End;</p>
+<p>Begin<br>      init;<br>      main;<br>      outit;<br>End.<br>```</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=3280" title="Cheapest Palindrome">POJ3280</a></p>
+<h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意为：</p>
+<p>给定一个长度为M（M&lt;=2000）的小写字母串</p>
+<p>给定串中出现的N种字母的添加和删除代价</p>
+<p>可以在任意位置加入或删除任意字母，代价如给定</p>
+<p>求使原串变形为回文串的最小代价</p>
+<h2 id="u89E3_u6CD5"><a href="#u89E3_u6CD5" class="headerlink" title="解法"></a>解法</h2><p>刚开始的思路非常复杂，储存两个代价，并且递归处理</p>
+<p>(left,right)之外的回文串(之间的已为回文)，然后分各种情况讨论。这又犯了想当然的毛病，而且每次都是打到一半才发现算法不完善，情况考虑未完整，影响很致命。</p>
+<p>其实这题的解法很简单。</p>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[usaco2006nov Roadblocks]]></title>
