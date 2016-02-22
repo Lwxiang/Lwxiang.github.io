@@ -1,36 +1,28 @@
 <!DOCTYPE html><html lang="Chinese"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> usaco2005jan Sumsets · Houseowo</title><meta name="description" content="题目来源：POJ2229
 分析题目大意为：
 给出一个正整数N(&amp;lt;=10^6)，可知N可分解为多个2^K(&amp;gt;=0)的数相加
-如： 7     = 1 + 1 + 1 + 1 + 1 + 1 + 1;
-= 1 + 1 + 1 + 1 + 1 + 2;
-
-   = 1 + 1 + 1 + 2 + 2;
-
-   = 1 + 1 + 1 + 4;
-
-   = 1 + 2 + 2 + 2;
-
-= 1 + 2 + 4;   
+如:7 = 1 + 1 + 1 + 1 + 1 + 1 + 1;
+  = 1 + 1 + 1 + 1 + 1 + 2;
+  = 1 + 1 + 1 + 2 + 2;
+  = 1 + 1 + 1 + 4;
+  = 1 + 2 + 2 + 2;
+  = 1 + 2 + 4;   
 共6种；
 求种数。
 刚拿到题目的时候，我联想到了整数的划分。
 
 套用那个动归方程去做。
 即F[I,J] 表示，将I划分成最大为J的整数和。
-这样 F[I,J] = SIG"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVES</a></li><li class="nav-list-item"><a href="http://weibo.com/u/2931620085" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/Lwxiang" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">usaco2005jan Sumsets</h1><div class="post-meta"><div class="post-time">Feb 14, 2013</div></div><div class="post-content"><p>题目来源：<a href="http://poj.org/problem?id=2229" title="Sumsets" target="_blank" rel="external">POJ2229</a></p>
+这样 F[I,J"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVES</a></li><li class="nav-list-item"><a href="http://weibo.com/u/2931620085" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/Lwxiang" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">usaco2005jan Sumsets</h1><div class="post-meta"><div class="post-time">Feb 14, 2013</div></div><div class="post-content"><p>题目来源：<a href="http://poj.org/problem?id=2229" title="Sumsets" target="_blank" rel="external">POJ2229</a></p>
 <h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意为：</p>
 <p>给出一个正整数N(&lt;=10^6)，可知N可分解为多个2^K(&gt;=0)的数相加</p>
-<p>如： 7     = 1 + 1 + 1 + 1 + 1 + 1 + 1;</p>
-<pre><code>= 1 + 1 + 1 + 1 + 1 + 2;
-
-   = 1 + 1 + 1 + 2 + 2;
-
-   = 1 + 1 + 1 + 4;
-
-   = 1 + 2 + 2 + 2;
-
-= 1 + 2 + 4;   
-</code></pre><p>共6种；</p>
+<p>如:<br>7 = 1 + 1 + 1 + 1 + 1 + 1 + 1;</p>
+<p>  = 1 + 1 + 1 + 1 + 1 + 2;</p>
+<p>  = 1 + 1 + 1 + 2 + 2;</p>
+<p>  = 1 + 1 + 1 + 4;</p>
+<p>  = 1 + 2 + 2 + 2;</p>
+<p>  = 1 + 2 + 4;   </p>
+<p>共6种；</p>
 <p>求种数。</p>
 <p>刚拿到题目的时候，我联想到了整数的划分。</p>
 <a id="more"></a>
