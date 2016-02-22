@@ -178,14 +178,15 @@ tot 表示向这个方向走tot个十字路口
     <link href="http://houseowo.me/2013/02/14/POJ3040/"/>
     <id>http://houseowo.me/2013/02/14/POJ3040/</id>
     <published>2013-02-13T18:20:07.000Z</published>
-    <updated>2016-02-22T12:30:41.000Z</updated>
+    <updated>2016-02-22T12:35:08.000Z</updated>
     <content type="html"><![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=3040" title="Allowance" target="_blank" rel="external">POJ3040</a></p>
 <h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意：</p>
 <p>给定N(&lt;=20)种钞票,第i种面值为a[i],数量为b[i]      </p>
 <p>每周要给奶牛C(&lt;=10^8)元的工资，求最多可以给几周。</p>
-<p>注意 1）给的工资每周不少于C元。</p>
-<pre><code>2）任意i,j  若a[i]&lt;a[j] 则 a[j]为a[i]的倍数
-</code></pre><p>肯定是贪心，但问题是怎么贪</p>
+<p>注意：</p>
+<p>1）给的工资每周不少于C元。</p>
+<p>2）任意i,j  若a[i]&lt;a[j] 则 a[j]为a[i]的倍数</p>
+<p>肯定是贪心，但问题是怎么贪</p>
 <a id="more"></a>
 <h2 id="u89E3_u6CD5"><a href="#u89E3_u6CD5" class="headerlink" title="解法"></a>解法</h2><p>根据网上的题解和大表的结论</p>
 <p>关键在于注意2，大的数一定是小的数的倍数。</p>
@@ -198,10 +199,9 @@ tot 表示向这个方向走tot个十字路口
 <p>  那么从大到小取 </p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (rest <span class="tag">div</span> <span class="tag">a</span>[k])&lt;=<span class="tag">b</span>[k] then d[k] = rest <span class="tag">div</span> <span class="tag">a</span>[k] </span><br><span class="line"></span><br><span class="line">                                <span class="keyword">else</span> d[k] = <span class="tag">b</span>[k]</span><br><span class="line"></span><br><span class="line">rest = rest - <span class="tag">a</span>[k]*d[k]</span><br></pre></td></tr></table></figure>
 <p>2)第二轮从小到大取，对于第k个数，取到超过所需为止，rest&lt;=0</p>
-<pre><code>若 第k个数能够把剩下的工资补完,则 `d[k] = rest div a[k](除不尽要+1)  rest = 0`
-
-若 第k....不能................,则 `d[k] = b[k]                       rest = rest - b[k]*a[k]`
-</code></pre><p>这样得到了d[]数组</p>
+<p>若 第k个数能够把剩下的工资补完,则 <code>d[k] = rest div a[k](除不尽要+1)  rest = 0</code></p>
+<p>若 第k….不能…………….,则 <code>d[k] = b[k]                       rest = rest - b[k]*a[k]</code></p>
+<p>这样得到了d[]数组</p>
 <p>如果一次一次地做，肯定会超时。。</p>
 <p>这样对于d[]数组，相当于一种给工资的方案，我们就可以统计这个方案最多可以用几次，然后再换一个方案。</p>
 <p>对于第k个数，d[]方案可以使用的次数为 time[k] = b[k] div d[k]</p>
@@ -216,9 +216,10 @@ tot 表示向这个方向走tot个十字路口
 <h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意：</p>
 <p>给定N(&lt;=20)种钞票,第i种面值为a[i],数量为b[i]      </p>
 <p>每周要给奶牛C(&lt;=10^8)元的工资，求最多可以给几周。</p>
-<p>注意 1）给的工资每周不少于C元。</p>
-<pre><code>2）任意i,j  若a[i]&lt;a[j] 则 a[j]为a[i]的倍数
-</code></pre><p>肯定是贪心，但问题是怎么贪</p>]]>
+<p>注意：</p>
+<p>1）给的工资每周不少于C元。</p>
+<p>2）任意i,j  若a[i]&lt;a[j] 则 a[j]为a[i]的倍数</p>
+<p>肯定是贪心，但问题是怎么贪</p>]]>
     
     </summary>
     
