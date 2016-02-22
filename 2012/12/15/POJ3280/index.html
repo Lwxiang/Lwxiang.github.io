@@ -21,19 +21,7 @@
 <p>首先注意到当在处理(left,right)时，</p>
 <p>如 …a(…)b… ()中为已处理完的回文串。此时删除和添加a所获得的效果和影响是一样的，因此我们只要在预处理时保留min(add[i],delete[i])就可以了。</p>
 <h2 id="u4F18_u5316"><a href="#u4F18_u5316" class="headerlink" title="优化"></a>优化</h2><p>dp</p>
-<h2 id="u8BE6_u89E3"><a href="#u8BE6_u89E3" class="headerlink" title="详解"></a>详解</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="attribute">left</span>,<span class="attribute">right</span>]</span><br></pre></td></tr></table></figure>
-<p>表示将left,right区间内字符串变成回文串</p>
-<p>有三种情况 </p>
-<ol>
-<li><p>a(…)a 这类代价直接等于(…)中代价</p>
-</li>
-<li><p>a(…)b 有两种处理，</p>
-<pre><code>后处理 * a : cost[a] + cost[ (...)b ]   
-
-后处理 * b : cost[b] + cost[ a(...) ]
-</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h2 id="u8BE6_u89E3"><a href="#u8BE6_u89E3" class="headerlink" title="详解"></a>详解</h2><figure class="highlight"><figcaption><span>表示将left,right区间内字符串变成回文串</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#26377;&#19977;&#31181;&#24773;&#20917; &#10;&#10;1.  a(...)a &#36825;&#31867;&#20195;&#20215;&#30452;&#25509;&#31561;&#20110;(...)&#20013;&#20195;&#20215;&#10;&#10;2.  a(...)b &#26377;&#20004;&#31181;&#22788;&#29702;&#65292;&#10;&#10;&#9;&#21518;&#22788;&#29702; a : cost[a] + cost[ (...)b ]   &#10;&#9;&#10;&#9;&#21518;&#22788;&#29702; b : cost[b] + cost[ a(...) ]</span><br></pre></td></tr></table></figure>
 <p>cost[left,right] =<br>    {<br>           cost[left+1,right-1]                                                     (if word[left]=word[right])<br>           min( cost[left+1,right] + pay[left] , cost[left,right-1] + pay[right] )  (else                     )<br>    }<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 细节</span><br><span class="line"></span><br><span class="line"><span class="escape">``</span><span class="escape">`c</span>ost[i,i]=<span class="number">0</span><span class="escape">``</span><span class="escape">` </span>单个字符</span><br><span class="line"></span><br><span class="line"><span class="escape">``</span><span class="escape">`c</span>ost[i,i-<span class="number">1</span>]=<span class="number">0</span><span class="escape">``</span><span class="escape">` </span>空串</span><br><span class="line"></span><br><span class="line">## 源程序</span><br></pre></td></tr></table></figure></p>
 <p>Program Lwx;</p>
 <p>Var     n, m:longint;<br>        word:array[1..2007] of longint;<br>        cost:array[1..26] of longint;<br>        tax:array[0..2007] of longint;<br>        fur:array[0..2007, 0..2007] of longint;<br>        i, j, k, l, x, y, z, ans:longint;<br>        q, w:char;</p>
