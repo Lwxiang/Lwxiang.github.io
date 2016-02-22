@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Lwxiang's Blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://houseowo.me/"/>
-  <updated>2016-02-22T12:47:25.000Z</updated>
+  <updated>2016-02-22T12:49:51.000Z</updated>
   <id>http://houseowo.me/</id>
   
   <author>
@@ -19,19 +19,15 @@
     <link href="http://houseowo.me/2013/02/14/POJ2435/"/>
     <id>http://houseowo.me/2013/02/14/POJ2435/</id>
     <published>2013-02-14T06:51:01.000Z</published>
-    <updated>2016-02-22T12:47:25.000Z</updated>
+    <updated>2016-02-22T12:49:51.000Z</updated>
     <content type="html"><![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=2435" title="Navigating the City" target="_blank" rel="external">POJ2435</a></p>
 <h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意：</p>
 <p>给一张各种字符组成的图，</p>
-<p>S,E分别为起点终点</p>
-<p>+是十字路口</p>
-<p>-,|是横的竖的街道</p>
-<p>.不能走</p>
-<p>+-+-+.+-+-+</p>
-<p>|…|…..|</p>
-<p>+-+.+-+-+-+ </p>
-<p>..|…….|</p>
-<p>S-+-+-+.E-+</p>
+<p><code>S</code>,<code>E</code>分别为起点终点</p>
+<p><code>+</code>是十字路口</p>
+<p><code>-</code>,<code>|</code>是横的竖的街道</p>
+<p><code>.</code>不能走</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-+-+.+-+-+</span><br><span class="line"></span><br><span class="line">|<span class="string">...</span>|<span class="string">.....</span>|</span><br><span class="line"></span><br><span class="line">+-+.+-+-+-+ </span><br><span class="line"></span><br><span class="line">..|<span class="string">.......</span>|</span><br><span class="line"></span><br><span class="line">S-+-+-+.E-+</span><br></pre></td></tr></table></figure>
 <p>比如这张图</p>
 <a id="more"></a>
 <p>现在要求是输出从起点到终点的最短路径 </p>
@@ -50,15 +46,11 @@ tot 表示向这个方向走tot个十字路口
     <![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=2435" title="Navigating the City">POJ2435</a></p>
 <h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意：</p>
 <p>给一张各种字符组成的图，</p>
-<p>S,E分别为起点终点</p>
-<p>+是十字路口</p>
-<p>-,|是横的竖的街道</p>
-<p>.不能走</p>
-<p>+-+-+.+-+-+</p>
-<p>|…|…..|</p>
-<p>+-+.+-+-+-+ </p>
-<p>..|…….|</p>
-<p>S-+-+-+.E-+</p>
+<p><code>S</code>,<code>E</code>分别为起点终点</p>
+<p><code>+</code>是十字路口</p>
+<p><code>-</code>,<code>|</code>是横的竖的街道</p>
+<p><code>.</code>不能走</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-+-+.+-+-+</span><br><span class="line"></span><br><span class="line">|<span class="string">...</span>|<span class="string">.....</span>|</span><br><span class="line"></span><br><span class="line">+-+.+-+-+-+ </span><br><span class="line"></span><br><span class="line">..|<span class="string">.......</span>|</span><br><span class="line"></span><br><span class="line">S-+-+-+.E-+</span><br></pre></td></tr></table></figure>
 <p>比如这张图</p>]]>
     
     </summary>
