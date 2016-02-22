@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Lwxiang's Blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://houseowo.me/"/>
-  <updated>2016-02-22T08:17:31.000Z</updated>
+  <updated>2016-02-22T08:27:10.000Z</updated>
   <id>http://houseowo.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://houseowo.me/2012/12/15/POJ3280/"/>
     <id>http://houseowo.me/2012/12/15/POJ3280/</id>
     <published>2012-12-15T05:20:32.000Z</published>
-    <updated>2016-02-22T08:17:31.000Z</updated>
+    <updated>2016-02-22T08:27:10.000Z</updated>
     <content type="html"><![CDATA[<p>题目来源：<a href="http://poj.org/problem?id=3280" title="Cheapest Palindrome" target="_blank" rel="external">POJ3280</a></p>
 <h2 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h2><p>题目大意为：</p>
 <p>给定一个长度为M（M&lt;=2000）的小写字母串</p>
@@ -36,15 +36,17 @@
 <h2 id="u8BE6_u89E3"><a href="#u8BE6_u89E3" class="headerlink" title="详解"></a>详解</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="attribute">left</span>,<span class="attribute">right</span>]</span><br></pre></td></tr></table></figure>
 <p>表示将left,right区间内字符串变成回文串</p>
 <p>有三种情况 </p>
-<pre><code>1.  a(...)a 这类代价直接等于(...)中代价
+<ol>
+<li><p>a(…)a 这类代价直接等于(…)中代价</p>
+</li>
+<li><p>a(…)b 有两种处理，</p>
+<pre><code>后处理 * a : cost[a] + cost[ (...)b ]   
 
-2.  a(...)b 有两种处理，后处理a : cost[a] + cost[ (...)b ]   
-
-                            后处理b : cost[b] + cost[ a(...) ]
-</code></pre><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="keyword">left</span>,<span class="keyword">right</span>] =</span><br><span class="line">    &#123;  </span><br><span class="line">       	cost[<span class="keyword">left</span>+<span class="number">1</span>,<span class="keyword">right</span>-<span class="number">1</span>]                                                     (<span class="keyword">if</span> word[<span class="keyword">left</span>]=word[<span class="keyword">right</span>]) </span><br><span class="line">       	<span class="built_in">min</span>( cost[<span class="keyword">left</span>+<span class="number">1</span>,<span class="keyword">right</span>] + pay[<span class="keyword">left</span>] , cost[<span class="keyword">left</span>,<span class="keyword">right</span>-<span class="number">1</span>] + pay[<span class="keyword">right</span>] )  (<span class="keyword">else</span>                     )   </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="u7EC6_u8282"><a href="#u7EC6_u8282" class="headerlink" title="细节"></a>细节</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cost[<span class="tag">i</span>,i]=<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<pre><code>单个字符
-</code></pre><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cost[i,i-<span class="number">1</span>]=<span class="number">0</span></span><br><span class="line">``` </span><br><span class="line">    空串</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">## 源程序</span></span><br></pre></td></tr></table></figure>
+后处理 * b : cost[b] + cost[ a(...) ]
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>cost[left,right] =<br>    {<br>           cost[left+1,right-1]                                                     (if word[left]=word[right])<br>           min( cost[left+1,right] + pay[left] , cost[left,right-1] + pay[right] )  (else                     )<br>    }<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 细节</span><br><span class="line"></span><br><span class="line"><span class="escape">``</span><span class="escape">`c</span>ost[i,i]=<span class="number">0</span><span class="escape">``</span><span class="escape">` </span>单个字符</span><br><span class="line"></span><br><span class="line"><span class="escape">``</span><span class="escape">`c</span>ost[i,i-<span class="number">1</span>]=<span class="number">0</span><span class="escape">``</span><span class="escape">` </span>空串</span><br><span class="line"></span><br><span class="line">## 源程序</span><br></pre></td></tr></table></figure></p>
 <p>Program Lwx;</p>
 <p>Var     n, m:longint;<br>        word:array[1..2007] of longint;<br>        cost:array[1..26] of longint;<br>        tax:array[0..2007] of longint;<br>        fur:array[0..2007, 0..2007] of longint;<br>        i, j, k, l, x, y, z, ans:longint;<br>        q, w:char;</p>
 <p>Function min(a, b:longint):longint;<br>Begin<br>      if a &lt; b then exit(a); exit(b);<br>End;</p>
