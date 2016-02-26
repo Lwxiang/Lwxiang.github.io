@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Lwxiang's Blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://houseowo.me/"/>
-  <updated>2016-02-26T13:00:39.000Z</updated>
+  <updated>2016-02-26T13:04:25.000Z</updated>
   <id>http://houseowo.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://houseowo.me/2016/02/26/BombRoom/"/>
     <id>http://houseowo.me/2016/02/26/BombRoom/</id>
     <published>2016-02-26T11:50:14.000Z</published>
-    <updated>2016-02-26T13:00:39.000Z</updated>
+    <updated>2016-02-26T13:04:25.000Z</updated>
     <content type="html"><![CDATA[<p><a href="http://115.28.65.51:8080/" title="game" target="_blank" rel="external">游戏地址</a></p>
 <h5 id="u8D77_u56E0"><a href="#u8D77_u56E0" class="headerlink" title="起因"></a>起因</h5><blockquote>
 <p>去年五月份参加了一次自强内部的HackDay，有幸跟<a href="https://github.com/ccloli" title="Github" target="_blank" rel="external">cc酱</a>组了个小队伍。<br>当时提出了一个很早就有过的想法————通过命令行的方式来进行游戏。</p>
@@ -43,8 +43,8 @@
 </ul>
 <h5 id="u73A9"><a href="#u73A9" class="headerlink" title="玩"></a>玩</h5><p>虽然还有一些小问题，但玩是可以玩了，也把修改后的版本放到了蓝鲸上面，期望会有好运吧:)</p>
 <p>附上截图:</p>
-<p><img src="host.png" alt="host"></p>
-<p><img src="game.png" alt="game"></p>
+<p><img src="../host.png" alt="host"></p>
+<p><img src="../game.png" alt="game"></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><a href="http://115.28.65.51:8080/" title="game">游戏地址</a></p>
